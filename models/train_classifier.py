@@ -37,7 +37,7 @@ def load_data(database_filepath):
             Y - pandas Dataframe
             category_names  - list of Y column names
     '''
-    engine = create_engine('sqlite:///Desaster_messages_categories.db')
+    engine = create_engine('sqlite:///{}'.format(database_filepath))
     df = pd.read_sql('SELECT * FROM Desaster_messages_categories', engine)
 
     X = df['message'] # define input data
@@ -132,7 +132,9 @@ def evaluate_model(model, X_test, Y_test, category_names):
 
 
 def save_model(model, model_filepath):
-    pass
+    #Export trained model as pickle file
+    with open(model_filepath, 'wb') as f:
+        pickle.dump(model, f)
 
 
 def main():
