@@ -26,7 +26,7 @@ from sklearn.multioutput import MultiOutputClassifier
 
 
 def load_data(database_filepath):
-    ''' Function that loads dataset from a database into a Pandas Dataframe 
+    ''' Function that loads dataset from a database into a Pandas Dataframe
         and splits the data into an Input Dataset and an Output Dataset
 
         Arguments:
@@ -49,7 +49,34 @@ def load_data(database_filepath):
 
 
 def tokenize(text):
-    pass
+    ''' Function that tokenizes a text input, removes stopwords and then
+        lemmatizes and stems the tokens and adds them to a list
+
+        Arguments:
+            text - string
+
+        Returns:
+            clean_tokens - list
+    '''
+    # Normalize text and tokenize
+    text = re.sub(r"[^a-zA-Z0-9]", " ", text)
+    tokens = word_tokenize(text)
+
+    # Remove Stopwords
+    tokens = [t for t in tokens if t not in stopwords.words('english')]
+
+    # Lemmatize and stem
+    lemmatizer = WordNetLemmatizer()
+    stemmer = PorterStemmer()
+
+    clean_tokens = []
+    for tok in tokens:
+        clean_tok1 = lemmatizer.lemmatize(tok).lower().strip()
+        clean_tok2 = stemmer.stem(clean_tok1)
+        clean_tokens.append(clean_tok2)
+
+    return clean_tokens
+
 
 
 
