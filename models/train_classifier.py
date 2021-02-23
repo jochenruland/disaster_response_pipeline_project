@@ -35,16 +35,18 @@ def load_data(database_filepath):
         Returns:
             X - pandas Series
             Y - pandas Dataframe
+            category_names  - list of Y column names
     '''
     engine = create_engine('sqlite:///Desaster_messages_categories.db')
     df = pd.read_sql('SELECT * FROM Desaster_messages_categories', engine)
 
     X = df['message'] # define input data
     Y = df.iloc[:,3:39] # define output data
-    print(Y.head(1), Y.shape)
+    category_names = list(Y.columns)
+    print(Y.head(1), Y.shape, category_names)
     print(X.head(1), X.shape)
 
-    return X, Y
+    return X, Y, category_names
 
 
 
@@ -81,11 +83,52 @@ def tokenize(text):
 
 
 def build_model():
-    pass
+    ''' Function that creates a supervised ML model, putting the estimators into
+        a pipeline object and adding GridSearchCV for optimization
 
+        Arguments:
+            none
+
+        Returns:
+            cv - ML model
+    '''
+    # specify estimators for ML pipeline
+    pipeline = Pipeline([
+        ('vect', CountVectorizer()),
+        ('tfidf', TfidfTransformer()),
+        ('clf', MultiOutputClassifier(RandomForestClassifier()))
+    ])
+
+    # specify parameters for grid search
+    parameters = {
+        'clf__estimator__min_samples_split': [2, 3],
+        #'clf__estimator__n_estimators': [50, 100],
+        }
+
+    # create grid search object
+    cv = GridSearchCV(pipeline, param_grid=parameters)
+
+    return cv
 
 def evaluate_model(model, X_test, Y_test, category_names):
-    pass
+    ''' Function that makes a prediction on the test data using the previously trained
+        model then evaluates the results
+        Arguments:
+            model -
+            X_test - Test input, pandas Series
+            Y_test - Test output, pandas Dataframe
+            category_names - list
+
+            Returns:
+            none
+    '''
+    # Prediction using trained model
+    Y_pred= model.predict(X_test)
+
+    # Evalation of model
+    for c in category_names:
+        print(c)
+        print(classification_report(Y_test[c], Y_pred[c]))
 
 
 def save_model(model, model_filepath):
