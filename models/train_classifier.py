@@ -22,7 +22,7 @@ from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.multioutput import MultiOutputClassifier
 
-
+import pickle
 
 
 def load_data(database_filepath):
@@ -126,10 +126,9 @@ def evaluate_model(model, X_test, Y_test, category_names):
     Y_pred= model.predict(X_test)
 
     # Evalation of model
-    for c in category_names:
-        print(c)
-        print(classification_report(Y_test[c], Y_pred[c]))
-
+    for i, col in enumerate(Y_test):
+        print(col)
+        print(classification_report(Y_test[col], Y_pred[:,i]))
 
 def save_model(model, model_filepath):
     #Export trained model as pickle file
