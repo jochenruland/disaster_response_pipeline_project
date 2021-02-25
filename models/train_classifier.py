@@ -38,7 +38,7 @@ def load_data(database_filepath):
             category_names  - list of Y column names
     '''
     engine = create_engine('sqlite:///{}'.format(database_filepath))
-    df = pd.read_sql('SELECT * FROM Desaster_messages_categories', engine)
+    df = pd.read_sql('SELECT * FROM Disaster_messages_categories', engine)
 
     X = df['message'] # define input data
     Y = df.iloc[:,3:39] # define output data
@@ -101,13 +101,11 @@ def build_model():
 
     # specify parameters for grid search
     parameters = {
-        'clf__estimator__min_samples_split': [2, 3],
-        #'clf__estimator__n_estimators': [50, 100],
-        }
+        'clf__estimator__n_estimators': [10],
+        'clf__estimator__min_samples_split': [2],
 
-    # create grid search object
-    cv = GridSearchCV(pipeline, param_grid=parameters)
-
+    }
+    cv = GridSearchCV(pipeline, param_grid=parameters, n_jobs=4, verbose=2, cv=3)
     return cv
 
 def evaluate_model(model, X_test, Y_test, category_names):
@@ -132,8 +130,7 @@ def evaluate_model(model, X_test, Y_test, category_names):
 
 def save_model(model, model_filepath):
     #Export trained model as pickle file
-    with open(model_filepath, 'wb') as f:
-        pickle.dump(model, f)
+    pickle.dump(model, open(model_filepath, 'wb'))
 
 
 def main():
@@ -141,7 +138,7 @@ def main():
         database_filepath, model_filepath = sys.argv[1:]
         print('Loading data...\n    DATABASE: {}'.format(database_filepath))
         X, Y, category_names = load_data(database_filepath)
-        X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2)
+        X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.4)
 
         print('Building model...')
         model = build_model()
