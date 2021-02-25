@@ -13,27 +13,27 @@ Clone this repo to the preferred directory on your computer using `git clone htt
 
 ### Libraries
 You must have installed the following libraries to run the code:
-`pandas
-numpy
-re
-chardet
-sqlalchemy
-nltk
-sklearn
-pickle
-json
-plotly
-flask
-joblib`
+`pandas`
+`numpy`
+`re`
+`chardet`
+`sqlalchemy`
+`nltk`
+`sklearn`
+`pickle`
+`json`
+`plotly`
+`flask`
+`joblib`
 
 ### Program and dataset files:
 
-FILES
-`data/process_data.py`: The ETL pipeline used extract, load and transform the data needed for model building. models/
-`data/DisasterResponse.db`: SQLite database file where the result from the ETL pipeline is saved
-`models/train_classifier.py`: The Machine Learning pipeline used to train and test the model, and evaluate its results. The model is saved as `classifier.pkl`.
-`app/templates/*.html`: HTML templates for the Webapp.
-`app/run.py`: Starts the Python server for the Webapp.
+### FILES
+- `data/process_data.py`: The ETL pipeline used to extract, load and transform the data needed for model building.
+- `data/DisasterResponse.db`: SQLite database file where the result from the ETL pipeline is saved.
+- `models/train_classifier.py`: The Machine Learning pipeline used to train and test the model, and evaluate its results. The model is saved as `classifier.pkl`.
+- `app/templates/*.html`: HTML templates for the Webapp.
+- `app/run.py`: Starts the Python server for the Webapp.
 
 
 ### Instructions to run the application:
