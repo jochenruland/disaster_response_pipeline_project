@@ -1,7 +1,7 @@
 # Disaster Response Pipeline Project
 A Flask Webapp including a supervised machine learning pipeline to classify disaster messages into 36 categories like water, food, aid, etc.
 
-Usually thousands of messages from different sources like Email, SMS, Twitter Feeds, etc. will reach people or organizations trying to help while time is the most crucial resource. In this case this application intends support these people and organizations by analyzing and automatically classifying the incoming messages and thus being able in a better way to allocate scarce resources.  
+Usually thousands of messages from different sources like Email, SMS, Twitter Feeds, etc. will reach people or organizations trying to help in case of a disaster while time is the most crucial resource. In this case this application intends support these people and organizations by analyzing and automatically classifying the incoming messages and thus being able in a better way to allocate scarce resources.  
 
 The project consists of 3 main pillars:
 1. The file `process_data.py` contains an ETL Pipeline to extract the data from 2 csv files, transform the data to one dataframe and load the result into a SQLite database file.
