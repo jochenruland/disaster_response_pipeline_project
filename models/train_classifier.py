@@ -69,13 +69,12 @@ def tokenize(text):
 
     # Lemmatize and stem
     lemmatizer = WordNetLemmatizer()
-    stemmer = PorterStemmer()
+
 
     clean_tokens = []
     for tok in tokens:
         clean_tok1 = lemmatizer.lemmatize(tok).lower().strip()
-        clean_tok2 = stemmer.stem(clean_tok1)
-        clean_tokens.append(clean_tok2)
+        clean_tokens.append(clean_tok1)
 
     return clean_tokens
 
