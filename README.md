@@ -1,6 +1,8 @@
 # Disaster Response Pipeline Project
 A Flask Webapp including a supervised machine learning pipeline to classify disaster messages into 36 categories like water, food, aid, etc.
 
+Usually thousands of messages from different sources like Email, SMS, Twitter Feeds, etc. will reach people or organizations trying to help while time is the most crucial resource. In this case this application intends support these people and organizations by analyzing and automatically classifying the incoming messages and thus being able in a better way to allocate scarce resources.  
+
 The project consists of 3 main pillars:
 1. The file `process_data.py` contains an ETL Pipeline to extract the data from 2 csv files, transform the data to one dataframe and load the result into a SQLite database file.
 
@@ -28,13 +30,27 @@ You must have installed the following libraries to run the code:
 
 ### Program and dataset files:
 
-### FILES
+### MAIN FILES
 - `data/process_data.py`: The ETL pipeline used to extract, load and transform the data needed for model building.
 - `data/DisasterResponse.db`: SQLite database file where the result from the ETL pipeline is saved.
 - `models/train_classifier.py`: The Machine Learning pipeline used to train and test the model, and evaluate its results. The model is saved as `classifier.pkl`.
-- `app/templates/*.html`: HTML templates for the Webapp.
 - `app/run.py`: Starts the Python server for the Webapp.
 
+### FILE STRUCTURE
+`app
+| - template
+| |- master.html # main page of web app
+| |- go.html # classification result page of web app
+|- run.py # Flask file that runs app
+data
+|- disaster_categories.csv # data to process
+|- disaster_messages.csv # data to process
+|- process_data.py
+|- InsertDatabaseName.db # database to save clean data to
+models
+|- train_classifier.py
+|- classifier.pkl # saved model
+README.md`
 
 ### Instructions to run the application:
 1. Run the following commands in the project's root directory to set up your database and model.
